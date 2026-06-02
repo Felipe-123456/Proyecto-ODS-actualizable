@@ -1,0 +1,4 @@
+{
+  "title": "Acerca de HealthyWay",
+  "content": "\n  Acerca de HealthyWay\n\n  Versión: 2.1.0\n\n  HealthyWay es una aplicación móvil desarrollada por estudiantes de Ingeniería en Computación de la Universidad Tecnológica Metropolitana de Chile.\n\n  Nuestra misión es conectar a personas interesadas en realizar actividades deportivas o recreativas, permitiendo la creación de eventos, la gestión de participación y el fomento de hábitos de vida activa.\n\n  La aplicación se alinea con el Objetivo de Desarrollo Sostenible 3 (Salud y Bienestar) de las Naciones Unidas, incentivando el movimiento mediante recompensas de experiencia (XP) obtenidas a partir de tus pasos diarios, los cuales sincronizamos utilizando la API de Health Connect.\n"
+}
