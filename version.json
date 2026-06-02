@@ -1,6 +1,6 @@
 {
-    "latestVersion": "2.0.0",
+    "latestVersion": "2.1.0",
     "downloadUrl": "https://github.com/Felipe-123456/Proyecto-ODS-actualizable/releases/download/apk/app-release.apk",
-    "releaseNotes": "Finalmente funciona el login",
+    "releaseNotes": "Se añadio la sincronizacion con Health Connect, ahora te daremos xp por cada paso haz que ardan esas piernas 😼💪",
     "isMandatory": true
 }
