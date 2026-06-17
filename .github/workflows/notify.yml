@@ -1,0 +1,54 @@
+name: Send Push Update
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'version.json' # ¡Solo se dispara si actualizas este archivo!
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Extraer versión
+        id: version
+        run: |
+          # Lee el numero de version desde version.json
+          VERSION=$(jq -r '.latestVersion' version.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Enviar Push a Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          # Aquí podrías usar un script nodejs o curl, pero GitHub tiene actions listas:
+          # Sin embargo, para mensajes puros de FCM lo más fácil es usar un script de Node.
+          # Vamos a ejecutar un script directo:
+        run: echo "Saltamos al paso de Node.js..."
+
+      - name: Instalar Firebase Admin
+        run: npm install firebase-admin
+
+      - name: Ejecutar Script de Notificación
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          node -e "
+          const admin = require('firebase-admin');
+          const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+          admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+          
+          const message = {
+            notification: {
+              title: '¡Nueva Actualización ' + process.env.VERSION + '!',
+              body: 'Abre Healthyway para instalar las últimas mejoras y seguir jugando.'
+            },
+            topic: 'all_users'
+          };
+          
+          admin.messaging().send(message)
+            .then((response) => console.log('Éxito:', response))
+            .catch((error) => console.log('Error:', error));
+          "
