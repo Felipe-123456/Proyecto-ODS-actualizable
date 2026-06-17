@@ -16,17 +16,8 @@ jobs:
       - name: Extraer versión
         id: version
         run: |
-          # Lee el numero de version desde version.json
           VERSION=$(jq -r '.latestVersion' version.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Enviar Push a Firebase
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          # Aquí podrías usar un script nodejs o curl, pero GitHub tiene actions listas:
-          # Sin embargo, para mensajes puros de FCM lo más fácil es usar un script de Node.
-          # Vamos a ejecutar un script directo:
-        run: echo "Saltamos al paso de Node.js..."
 
       - name: Instalar Firebase Admin
         run: npm install firebase-admin
