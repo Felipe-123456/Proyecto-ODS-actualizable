@@ -36,7 +36,7 @@ jobs:
           const message = {
             notification: {
               title: '¡Nueva Actualización ' + process.env.VERSION + '!',
-              body: 'Abre Healthyway para instalar las últimas mejoras y seguir jugando.'
+              body: 'WOSH!!! Y DESDE EL CIELO ACABA DE CAER UNA NUEVA ACTUALIZACIÓN NO ME DEJES ESPERANDO, ENTRA YA!!!!'
             },
             topic: 'all_users'
           };
