@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'version.json' # ¡Solo se dispara si actualizas este archivo!
+      - 'version.json'
 
 jobs:
   notify:
@@ -27,9 +27,11 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
           node -e "
-          const admin = require('firebase-admin');
+          const { initializeApp, cert } = require('firebase-admin/app');
+          const { getMessaging } = require('firebase-admin/messaging');
+          
           const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-          admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+          initializeApp({ credential: cert(serviceAccount) });
           
           const message = {
             notification: {
@@ -39,7 +41,7 @@ jobs:
             topic: 'all_users'
           };
           
-          admin.messaging().send(message)
+          getMessaging().send(message)
             .then((response) => console.log('Éxito:', response))
-            .catch((error) => console.log('Error:', error));
+            .catch((error) => { console.error('Error:', error); process.exit(1); });
           "
